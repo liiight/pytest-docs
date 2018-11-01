@@ -23,7 +23,7 @@ setup(
     description='Documentation tool for pytest',
     long_description=read('README.rst'),
     py_modules=['pytest_docs'],
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
+    python_requires='>=3.4',
     install_requires=['pytest>=3.5.0'],
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -31,8 +31,6 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Testing',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
@@ -44,7 +42,7 @@ setup(
     ],
     entry_points={
         'pytest11': [
-            'docs = pytest_docs',
+            'docs = pytest_docs.plugin',
         ],
     },
 )

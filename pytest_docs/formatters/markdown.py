@@ -2,7 +2,7 @@ from ..models.formatter import Formatter
 
 
 class MarkdownFormatter(Formatter):
-    name = 'markdown'
+    name = 'md'
     marker_prefix = "\n**Markers:**"
 
     @staticmethod

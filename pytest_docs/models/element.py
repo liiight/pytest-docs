@@ -1,5 +1,6 @@
-from ..plugin import PYTEST_DOC_MARKER
 from ..pytest_utils.utils import unique_identifier, element_name, element_markers, element_desc, format_markers
+
+PYTEST_DOC_MARKER = 'pytest_doc'
 
 
 class Element:

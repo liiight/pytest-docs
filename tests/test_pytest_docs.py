@@ -1,64 +1,57 @@
-# -*- coding: utf-8 -*-
+import textwrap
 
 
-def test_bar_fixture(testdir):
-    """Make sure that pytest accepts our fixture."""
-
-    # create a temporary pytest test module
-    testdir.makepyfile("""
-        def test_sth(bar):
-            assert bar == "europython2015"
-    """)
-
-    # run pytest with the following cmd args
-    result = testdir.runpytest(
-        '--foo=europython2015',
-        '-v'
-    )
-
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        '*::test_sth PASSED*',
-    ])
-
-    # make sure that that we get a '0' exit code for the testsuite
-    assert result.ret == 0
-
-
-def test_help_message(testdir):
-    result = testdir.runpytest(
-        '--help',
-    )
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        'docs:',
-        '*--foo=DEST_FOO*Set the value for the fixture "bar".',
-    ])
-
-
-def test_hello_ini_setting(testdir):
-    testdir.makeini("""
-        [pytest]
-        HELLO = world
-    """)
-
-    testdir.makepyfile("""
+def test_markdown_formatter(testdir, tmp_path):
+    path = tmp_path / 'doc.md'
+    testdir.makepyfile(
+        """
+        '''This is the module doc'''
         import pytest
-
-        @pytest.fixture
-        def hello(request):
-            return request.config.getini('HELLO')
-
-        def test_hello_world(hello):
-            assert hello == 'world'
+        
+        pytestmark = [pytest.mark.module_mark, pytest.mark.module_mark_2, pytest.mark.pytest_doc(name='Test Docs')]
+        
+        
+        @pytest.mark.class_marker
+        @pytest.mark.pytest_doc(name='Test Class')
+        class TestClass:
+            '''This is the class doc'''
+        
+            @pytest.mark.func_mark_a('foo')
+            def test_func_a(self):
+                '''This is the doc for test_func_a'''
+                assert 1
+        
+            @pytest.mark.kwarg_mark(goo='bla')
+            def test_func_b(self):
+                '''This is the doc for test_func_b'''
+                assert 1
+        
+        """)
+    testdir.runpytest(
+        '--docs', '{}'.format(path)
+    )
+    assert path.read_text() == textwrap.dedent("""\
+    # Test Docs
+    This is the module doc
+    
+    **Markers:**
+    - module_mark  
+    - module_mark_2  
+    - pytest_doc  (name=Test Docs)
+    ## Test Class
+    This is the class doc
+    
+    **Markers:**
+    - pytest_doc  (name=Test Class)
+    - class_marker  
+    ### test_func_a
+    This is the doc for test_func_a
+    
+    **Markers:**
+    - func_mark_a (foo) 
+    ### test_func_b
+    This is the doc for test_func_b
+    
+    **Markers:**
+    - kwarg_mark  (goo=bla)
     """)
-
-    result = testdir.runpytest('-v')
-
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        '*::test_hello_world PASSED*',
-    ])
-
-    # make sure that that we get a '0' exit code for the testsuite
-    assert result.ret == 0

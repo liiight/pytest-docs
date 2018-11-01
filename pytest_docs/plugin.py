@@ -3,8 +3,6 @@ from pathlib import Path
 from .formatters import markdown, restuctured
 from .models.element import Element
 
-PYTEST_DOC_MARKER = 'pytest_doc'
-
 FORMATTERS = {
     markdown.MarkdownFormatter.name: markdown.MarkdownFormatter,
     restuctured.RSTFormatter.name: restuctured.RSTFormatter
@@ -33,3 +31,24 @@ class DocPlugin:
     def pytest_terminal_summary(self, terminalreporter, exitstatus):
         if self.path:
             terminalreporter.write_sep('-', 'generated doc file: {}'.format(self.path))
+
+
+def pytest_addoption(parser):
+    group = parser.getgroup('docs generator')
+    group.addoption(
+        '--docs',
+        dest='docs_path',
+        help='create documentation given path'
+    )
+    group.addoption(
+        '--doc-type',
+        dest='docs_type',
+        default='md',
+        help='Choose document type',
+        choices=list(FORMATTERS)
+    )
+
+
+def pytest_configure(config):
+    docs = DocPlugin(config)
+    config.pluginmanager.register(docs, docs)
