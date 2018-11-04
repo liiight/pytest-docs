@@ -95,7 +95,7 @@ class Element:
             args,
             kwargs
         ]
-        return ' '.join(out).strip(' ')
+        return ' '.join(out).strip()
 
     @methdispatch
     def get_marker(self, marker):
