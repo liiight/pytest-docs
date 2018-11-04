@@ -1,11 +1,12 @@
 from pathlib import Path
 
-from .formatters import markdown, restuctured
-from .models.element import Element
+from .element import Element
+from .formatters.markdown import MarkdownFormatter
+from .formatters.restuctured import RSTFormatter
 
 FORMATTERS = {
-    markdown.MarkdownFormatter.name: markdown.MarkdownFormatter(),
-    restuctured.RSTFormatter.name: restuctured.RSTFormatter()
+    MarkdownFormatter.name: MarkdownFormatter(),
+    RSTFormatter.name: RSTFormatter()
 }
 
 

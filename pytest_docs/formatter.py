@@ -1,6 +1,6 @@
 from itertools import chain
 
-from .element import Element
+from pytest_docs.element import Element
 
 
 class Formatter:

@@ -4,7 +4,7 @@ from enum import Enum
 from _pytest.mark.structures import MarkDecorator
 from pytest import Function
 
-from ..utils import methdispatch
+from .utils import methdispatch
 
 PYTEST_DOC_MARKER = 'pytest_doc'
 

@@ -1,4 +1,4 @@
-from ..models.formatter import Formatter
+from pytest_docs.formatter import Formatter
 
 
 class RSTFormatter(Formatter):
