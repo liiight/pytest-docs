@@ -6,9 +6,6 @@ from .element import Element
 class Formatter:
     name = None
 
-    def __init__(self, doc_tree: Element):
-        self.doc_tree = doc_tree
-
     @staticmethod
     def _default_format(element) -> str:
         return element
@@ -22,9 +19,9 @@ class Formatter:
     marker_format = _default_format
     marker_prefix = "Markers"
 
-    def create_document(self) -> str:
+    def create_document(self, doc_tree: Element) -> str:
         out = []
-        for module in self.doc_tree.children:
+        for module in doc_tree.children:
             out += self._doc_element(module, self.module_name_format, self.module_desc_format)
             for class_ in module.children:
                 out += self._doc_element(class_, self.class_name_format, self.class_desc_format)

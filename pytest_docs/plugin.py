@@ -4,8 +4,8 @@ from .formatters import markdown, restuctured
 from .models.element import Element
 
 FORMATTERS = {
-    markdown.MarkdownFormatter.name: markdown.MarkdownFormatter,
-    restuctured.RSTFormatter.name: restuctured.RSTFormatter
+    markdown.MarkdownFormatter.name: markdown.MarkdownFormatter(),
+    restuctured.RSTFormatter.name: restuctured.RSTFormatter()
 }
 
 
@@ -22,8 +22,8 @@ class DocPlugin:
 
         doc_tree = Element.create_doc_tree(session.items)
 
-        fmt = FORMATTERS[self.format_type](doc_tree)
-        out = fmt.create_document()
+        fmt = FORMATTERS[self.format_type]
+        out = fmt.create_document(doc_tree)
 
         path = Path(self.path)
         path.write_text(out)
