@@ -52,4 +52,4 @@ def pytest_addoption(parser):
 
 def pytest_configure(config):
     docs = DocPlugin(config)
-    config.pluginmanager.register(docs, docs)
+    config.pluginmanager.register(docs, 'pytest-docs')

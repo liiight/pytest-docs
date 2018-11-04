@@ -27,7 +27,7 @@ class Formatter:
                 out += self._doc_element(class_, self.class_name_format, self.class_desc_format)
                 for func in class_:
                     out += self._doc_element(func, self.func_name_format, self.func_desc_format)
-        return ''.join(out)
+        return ''.join(out).lstrip('\n')
 
     def _element_markers(self, element: Element) -> list:
         marker_doc = []
