@@ -1,12 +1,24 @@
+from enum import Enum
+from functools import singledispatch
+
+from pytest import Function
+
 from ..pytest_utils.utils import unique_identifier, element_name, element_markers, element_desc, format_markers
 
 PYTEST_DOC_MARKER = 'pytest_doc'
 
 
+class ElementType(Enum):
+    FUNCTION = 'function'
+    CLASS = 'class'
+    MODULE = 'module'
+    NONE = None
+
+
 class Element:
-    def __init__(self, element: 'Element' = None, type_: str = None):
+    def __init__(self, element: 'Element' = None):
         self.raw_element = element
-        self.type_ = type_
+        self.type_ = self._element_type(element)
         self.unique_id = None
         self.raw_name = None
         self.raw_markers = []
@@ -14,6 +26,27 @@ class Element:
         self.parent = None
         self.children = []
         self.init()
+
+    def __iter__(self):
+        return iter(self.children)
+
+    @property
+    def top(self):
+        return self.parent is None
+
+    @property
+    def siblings(self):
+        return (elem for elem in self.parent if elem is not self) if self.parent else ()
+
+    @singledispatch
+    def _element_type(self, element):
+        if element is None:
+            return ElementType.NONE
+        return ElementType.CLASS if hasattr(element, '__qualname__') else ElementType.MODULE
+
+    @_element_type.register(Function)
+    def _(self, element):
+        return ElementType.FUNCTION
 
     @classmethod
     def create_doc_tree(cls, items) -> 'Element':
