@@ -21,11 +21,11 @@ class Formatter:
 
     def create_document(self, doc_tree: Element) -> str:
         out = []
-        for module in doc_tree.children:
+        for module in doc_tree:
             out += self._doc_element(module, self.module_name_format, self.module_desc_format)
-            for class_ in module.children:
+            for class_ in module:
                 out += self._doc_element(class_, self.class_name_format, self.class_desc_format)
-                for func in class_.children:
+                for func in class_:
                     out += self._doc_element(func, self.func_name_format, self.func_desc_format)
         return ''.join(out)
 
