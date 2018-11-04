@@ -1,9 +1,10 @@
+import inspect
 from enum import Enum
-from functools import singledispatch
 
+from _pytest.mark.structures import MarkDecorator
 from pytest import Function
 
-from ..pytest_utils.utils import unique_identifier, element_name, element_markers, element_desc, format_markers
+from ..utils import methdispatch
 
 PYTEST_DOC_MARKER = 'pytest_doc'
 
@@ -18,14 +19,14 @@ class ElementType(Enum):
 class Element:
     def __init__(self, element: 'Element' = None):
         self.raw_element = element
-        self.type_ = self._element_type(element)
-        self.unique_id = None
-        self.raw_name = None
-        self.raw_markers = []
-        self.desc = None
+        self.raw_markers = self.element_markers(element)
+        self.type_ = self._element_type(element) if element else ElementType.NONE
+        self.unique_id = self.unique_identifier(element)
+        self.raw_name = self.element_name(element)
+        self.desc = self.element_desc(element)
+
         self.parent = None
         self.children = []
-        self.init()
 
     def __iter__(self):
         return iter(self.children)
@@ -38,10 +39,8 @@ class Element:
     def siblings(self):
         return (elem for elem in self.parent if elem is not self) if self.parent else ()
 
-    @singledispatch
+    @methdispatch
     def _element_type(self, element):
-        if element is None:
-            return ElementType.NONE
         return ElementType.CLASS if hasattr(element, '__qualname__') else ElementType.MODULE
 
     @_element_type.register(Function)
@@ -55,22 +54,94 @@ class Element:
             tree.add(cls(item.module)).add(cls(item.cls)).add(cls(item))
         return tree
 
+    @methdispatch
+    def element_name(self, element):
+        return element.__name__ if element else ''
+
+    @element_name.register(Function)
+    def _(self, element):
+        return element.originalname or element.name
+
+    @methdispatch
+    def element_desc(self, element):
+        return element.__doc__ if element else ''
+
+    @element_desc.register(Function)
+    def _(self, element):
+        return element.function.__doc__
+
+    @methdispatch
+    def format_marker(self, marker_data):
+        data = ['(', ')']
+        data.insert(1, ''.join(['{}'.format(arg) for arg in marker_data]))
+        return ''.join(data)
+
+    @format_marker.register(dict)
+    def _(self, marker_data):
+        data = ['(', ')']
+        data.insert(1, ''.join(['{}={}'.format(key, value) for key, value in marker_data.items()]))
+        return ''.join(data)
+
+    def marker_details(self, marker):
+        args = kwargs = ''
+        if marker.args:
+            args = self.format_marker(marker.args)
+
+        if marker.kwargs:
+            kwargs = self.format_marker(marker.kwargs)
+
+        out = [
+            marker.name,
+            args,
+            kwargs
+        ]
+        return ' '.join(out)
+
+    @methdispatch
+    def get_marker(self, marker):
+        return self.marker_details(marker)
+
+    @get_marker.register(MarkDecorator)
+    def _(self, marker):
+        return self.marker_details(marker.mark)
+
     def add(self, element: 'Element') -> 'Element':
         if element not in self.children:
             element.parent = self
             self.children.append(element)
         return self.children[self.children.index(element)]
 
-    def init(self):
-        if self.raw_element:
-            self.unique_id = unique_identifier(self.raw_element)
-            self.raw_name = element_name(self.raw_element)
-            self.raw_markers = element_markers(self.raw_element)
-            self.desc = element_desc(self.raw_element)
+    def format_markers(self, markers):
+        return [self.get_marker(marker) for marker in markers]
+
+    @methdispatch
+    def element_markers(self, element):
+        markers = getattr(element, 'pytestmark', [])
+        if not isinstance(markers, list):
+            markers = [markers]
+        return markers
+
+    @element_markers.register(Function)
+    def _(self, element):
+        return element.own_markers
+
+    @methdispatch
+    def unique_identifier(self, element):
+        if not element:
+            return None
+        qualname = getattr(element, '__qualname__', None)
+        source_file = inspect.getsourcefile(element)
+        if qualname:
+            return f'{source_file}/{qualname}'
+        return source_file
+
+    @unique_identifier.register(Function)
+    def _(self, element):
+        return element.nodeid
 
     @property
     def markers(self) -> list:
-        return format_markers(self.raw_markers)
+        return self.format_markers(self.raw_markers)
 
     @property
     def name(self) -> str:
