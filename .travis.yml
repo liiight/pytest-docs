@@ -17,6 +17,7 @@ matrix:
         env: TOX_ENV=flake8
 
 install:
+  - pip install --upgrade pip setuptools
   - pip install tox
 
 script:
