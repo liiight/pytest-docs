@@ -14,10 +14,6 @@ pytest-docs
     :target: https://travis-ci.org/liiight/pytest-docs
     :alt: See Build Status on Travis CI
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/liiight/pytest-docs?branch=master
-    :target: https://ci.appveyor.com/project/liiight/pytest-docs/branch/master
-    :alt: See Build Status on AppVeyor
-
 Documentation tool for pytest
 
 ----
@@ -28,14 +24,17 @@ This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`
 Features
 --------
 
-* TODO
+Create documentation of your tests. Current supported formats:
 
+- Markdown
+- reStrcutured text
 
-Requirements
-------------
+Why not sphinx?
+---------------
 
-* TODO
-
+(More accurately, why not sphinx-autodoc?)
+Sphinx is an amazing tool that I use and used in other project. To use its autodoc plugin, it need the documented plugin to be importable by the python interperter. Pytest test collection and invocation uses a completely separate mechanism.
+If you believe that it somehow possible to use sphinx to create pytest documentation, please do not hesitate to contact me.
 
 Installation
 ------------
@@ -48,7 +47,12 @@ You can install "pytest-docs" via `pip`_ from `PyPI`_::
 Usage
 -----
 
-* TODO
+Use ``--docs [PATH]`` to create the documentation.
+Use ``--doc-type`` to select the type (currently supports ``md`` and ``rst``)
+
+.. note::
+
+    pytest-docs uses the pytest collection mechanism, so your documentation will be generated according the the usual collection commands used to run the tests.
 
 Contributing
 ------------

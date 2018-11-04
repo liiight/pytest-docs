@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "Documentation tool for pytest"
 authors = ["Or Carmi <or.carmi82@gmail.com>"]
 license = "MIT"
-readme = "README.md"
+readme = "README.rst"
 homepage = "https://github.com/liiight/pytest_docs"
 classifiers=[
         'Development Status :: 4 - Beta',
@@ -30,6 +30,7 @@ python = "^3.4"
 pytest = "^3.5.0"
 
 [tool.poetry.dev-dependencies]
+tox = "^3.5"
 
 [build-system]
 requires = ["poetry>=0.12"]
