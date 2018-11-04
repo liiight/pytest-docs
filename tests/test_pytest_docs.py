@@ -1,17 +1,15 @@
-def test_markdown_formatter_sanity(testdir, tmp_path, expected_output):
-    path = tmp_path / 'doc.md'
-    testdir.copy_example("test_suite.py")
-    testdir.runpytest(
-        '--docs', '{}'.format(path)
-    )
-    assert path.read_text() == expected_output('markdown_sanity.md')
+import pytest
 
 
-def test_rst_formatter_sanity(testdir, tmp_path, expected_output):
-    path = tmp_path / 'doc.rst'
+@pytest.mark.parametrize('file_type, expected_file', [
+    ('md', 'markdown_sanity.md'),
+    ('rst', 'rst_sanity.rst'),
+])
+def test_formatter_sanity(testdir, tmp_path, file_type, expected_file, expected_output):
+    path = tmp_path / 'doc.{}'.format(file_type)
     testdir.copy_example("test_suite.py")
     testdir.runpytest(
         '--docs', '{}'.format(path),
-        '--doc-type', 'rst'
+        '--doc-type', file_type
     )
-    assert path.read_text() == expected_output('rst_sanity.rst')
+    assert path.read_text() == expected_output(expected_file)
