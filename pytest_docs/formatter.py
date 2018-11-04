@@ -22,12 +22,18 @@ class Formatter:
     def create_document(self, doc_tree: Element) -> str:
         out = []
         for module in doc_tree:
-            out += self._doc_element(module, self.module_name_format, self.module_desc_format)
+            out += self._doc_element(
+                module, self.module_name_format, self.module_desc_format
+            )
             for class_ in module:
-                out += self._doc_element(class_, self.class_name_format, self.class_desc_format)
+                out += self._doc_element(
+                    class_, self.class_name_format, self.class_desc_format
+                )
                 for func in class_:
-                    out += self._doc_element(func, self.func_name_format, self.func_desc_format)
-        return ''.join(out).lstrip('\n')
+                    out += self._doc_element(
+                        func, self.func_name_format, self.func_desc_format
+                    )
+        return "".join(out).lstrip("\n")
 
     def _element_markers(self, element: Element) -> list:
         marker_doc = []
@@ -47,4 +53,4 @@ class Formatter:
 
     @staticmethod
     def _add_new_lines(element_doc: list) -> list:
-        return list(chain.from_iterable(zip(element_doc, ['\n' for _ in element_doc])))
+        return list(chain.from_iterable(zip(element_doc, ["\n" for _ in element_doc])))

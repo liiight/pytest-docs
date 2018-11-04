@@ -2,9 +2,9 @@ import pytest
 from pathlib import Path
 
 BASE_PATH = Path(__file__).parent
-OUTPUT_PATH = BASE_PATH / 'output'
+OUTPUT_PATH = BASE_PATH / "output"
 
-pytest_plugins = 'pytester'
+pytest_plugins = "pytester"
 
 
 @pytest.fixture

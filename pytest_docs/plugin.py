@@ -6,16 +6,15 @@ from .formatters.restuctured import RSTFormatter
 
 FORMATTERS = {
     MarkdownFormatter.name: MarkdownFormatter(),
-    RSTFormatter.name: RSTFormatter()
+    RSTFormatter.name: RSTFormatter(),
 }
 
 
 class DocPlugin:
-
     def __init__(self, config):
         self.config = config
-        self.path = config.getvalue('docs_path')
-        self.format_type = config.getvalue('docs_type')
+        self.path = config.getvalue("docs_path")
+        self.format_type = config.getvalue("docs_type")
 
     def pytest_runtestloop(self, session):
         if not self.path:
@@ -31,25 +30,21 @@ class DocPlugin:
 
     def pytest_terminal_summary(self, terminalreporter, exitstatus):
         if self.path:
-            terminalreporter.write_sep('-', 'generated doc file: {}'.format(self.path))
+            terminalreporter.write_sep("-", "generated doc file: {}".format(self.path))
 
 
 def pytest_addoption(parser):
-    group = parser.getgroup('docs generator')
+    group = parser.getgroup("docs generator")
+    group.addoption("--docs", dest="docs_path", help="create documentation given path")
     group.addoption(
-        '--docs',
-        dest='docs_path',
-        help='create documentation given path'
-    )
-    group.addoption(
-        '--doc-type',
-        dest='docs_type',
-        default='md',
-        help='Choose document type',
-        choices=list(FORMATTERS)
+        "--doc-type",
+        dest="docs_type",
+        default="md",
+        help="Choose document type",
+        choices=list(FORMATTERS),
     )
 
 
 def pytest_configure(config):
     docs = DocPlugin(config)
-    config.pluginmanager.register(docs, 'pytest-docs')
+    config.pluginmanager.register(docs, "pytest-docs")
