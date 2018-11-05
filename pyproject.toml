@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytest-docs"
-version = "0.0.3"
+version = "0.0.4"
 description = "Documentation tool for pytest"
 authors = ["orcarmi <ocarmi@proofpoint.com>"]
 homepage = "https://github.com/liiight/pytest_docs"
@@ -21,7 +21,7 @@ classifiers=[
         "License :: OSI Approved :: MIT License",
     ]
 [tool.poetry.scripts]
-pytest11 = "pytest-doc:pytest_docs.plugin"
+pytest11 = "pytest-doc=pytest_docs.plugin"
 license = "MIT"
 
 [tool.poetry.dependencies]
