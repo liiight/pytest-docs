@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 import codecs
-from setuptools import setup
+import os
+
+from setuptools import setup, find_packages
 
 
 def read(fname):
@@ -25,6 +26,7 @@ setup(
     py_modules=["pytest_docs"],
     python_requires=">=3.4",
     install_requires=["pytest>=3.9.1"],
+    packages=find_packages(exclude=["pytest_docs.tests"]),
     classifiers=[
         "Development Status :: 4 - Beta",
         "Framework :: Pytest",
