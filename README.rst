@@ -2,6 +2,8 @@
 pytest-docs
 ===========
 
+Documentation tool for pytest
+
 .. image:: https://img.shields.io/pypi/v/pytest-docs.svg
     :target: https://pypi.org/project/pytest-docs
     :alt: PyPI version
@@ -10,11 +12,9 @@ pytest-docs
     :target: https://pypi.org/project/pytest-docs
     :alt: Python versions
 
-.. image:: https://travis-ci.org/liiight/pytest-docs.svg?branch=master
+.. image:: https://travis-ci.org/liiight/pytest_docs.svg?branch=master
     :target: https://travis-ci.org/liiight/pytest-docs
     :alt: See Build Status on Travis CI
-
-Documentation tool for pytest
 
 ----
 
@@ -54,9 +54,10 @@ Usage
 -----
 
 Use ``--docs [PATH]`` to create the documentation.
+
 Use ``--doc-type`` to select the type (currently supports ``md`` and ``rst``)
 
-.. note:: pytest-docs uses the pytest collection mechanism, so your documentation will be generated according the the usual collection commands used to run the tests.
+**Note:** pytest-docs uses the pytest collection mechanism, so your documentation will be generated according the the usual collection commands used to run the tests.
 
 Contributing
 ------------
