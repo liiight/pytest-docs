@@ -13,8 +13,8 @@ matrix:
         env: TOX_ENV=py36
 
 install:
-  - pip install --upgrade pip setuptools
-  - pip install tox
+  - pip install --upgrade pip setuptools tox
+  - pip install -e .
 
 script:
   - tox -e $TOX_ENV
