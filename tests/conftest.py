@@ -11,6 +11,7 @@ pytest_plugins = "pytester"
 def expected_output():
     def _(file_name):
         path = OUTPUT_PATH / file_name
-        return path.read_text()
+        with path.open() as file:
+            return file.read()
 
     return _
