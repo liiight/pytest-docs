@@ -19,7 +19,6 @@ matrix:
 
 install:
   - pip install --upgrade pip setuptools tox
-  - pip install -e .
 
 script:
   - tox -e $TOX_ENV
