@@ -25,8 +25,8 @@ class DocPlugin:
         fmt = FORMATTERS[self.format_type]
         out = fmt.create_document(doc_tree)
 
-        path = Path(self.path)
-        path.write_text(out)
+        with Path(self.path).open("w") as file:
+            file.write(out)
 
     def pytest_terminal_summary(self, terminalreporter, exitstatus):
         if self.path:
