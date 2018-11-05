@@ -32,8 +32,8 @@ class TestClass:
     "file_type, expected_file",
     [("md", "markdown_sanity.md"), ("rst", "rst_sanity.rst")],
 )
-def test_formatter_sanity(testdir, tmp_path, file_type, expected_file, expected_output):
-    path = tmp_path / "doc.{}".format(file_type)
+def test_formatter_sanity(testdir, tmpdir, file_type, expected_file, expected_output):
+    path = tmpdir.join("doc.{}".format(file_type))
     testdir.makepyfile(TEST_SUITE)
     testdir.runpytest("--docs", str(path), "--doc-type", file_type)
-    assert path.read_text() == expected_output(expected_file)
+    assert path.read() == expected_output(expected_file)

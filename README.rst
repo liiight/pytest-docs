@@ -36,6 +36,12 @@ Why not sphinx?
 Sphinx is an amazing tool that I use and used in other project. To use its autodoc plugin, it need the documented plugin to be importable by the python interperter. Pytest test collection and invocation uses a completely separate mechanism.
 If you believe that it somehow possible to use sphinx to create pytest documentation, please do not hesitate to contact me.
 
+Requirements
+------------
+
+- Python 3.4, 3.5, 3.6 or 3.7
+- Pytest >= 3.5.0
+
 Installation
 ------------
 
@@ -50,9 +56,7 @@ Usage
 Use ``--docs [PATH]`` to create the documentation.
 Use ``--doc-type`` to select the type (currently supports ``md`` and ``rst``)
 
-.. note::
-
-    pytest-docs uses the pytest collection mechanism, so your documentation will be generated according the the usual collection commands used to run the tests.
+.. note:: pytest-docs uses the pytest collection mechanism, so your documentation will be generated according the the usual collection commands used to run the tests.
 
 Contributing
 ------------
