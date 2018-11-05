@@ -135,7 +135,7 @@ class Element:
         qualname = getattr(element, "__qualname__", None)
         source_file = inspect.getsourcefile(element)
         if qualname:
-            return f"{source_file}/{qualname}"
+            return "{}/{}".format(source_file, qualname)
         return source_file
 
     @unique_identifier.register(Function)
@@ -154,7 +154,7 @@ class Element:
         return self.raw_name
 
     def __repr__(self):
-        return f"<Element(name={self.name}>"
+        return "<Element(name={}>".format(self.name)
 
     def __str__(self):
         return self.name
