@@ -26,7 +26,64 @@ This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`
 Features
 --------
 
-Create documentation of your tests. Current supported formats:
+Create documentation of your tests. Turns this:
+
+.. code-block::
+
+    '''This is the module doc'''
+    import pytest
+
+    pytestmark = [
+        pytest.mark.module_mark,
+        pytest.mark.module_mark_2,
+        pytest.mark.pytest_doc(name="Test Docs"),
+    ]
+
+
+    @pytest.mark.class_marker
+    @pytest.mark.pytest_doc(name="Test Class")
+    class TestClass:
+        '''This is the class doc'''
+
+        @pytest.mark.func_mark_a("foo")
+        def test_func_a(self):
+            '''This is the doc for test_func_a'''
+            assert 1
+
+        @pytest.mark.kwarg_mark(goo="bla")
+        def test_func_b(self):
+            '''This is the doc for test_func_b'''
+            assert 1
+
+To this:
+
+.. code-block::
+
+    # Test Docs
+    This is the module doc
+
+    **Markers:**
+    - module_mark
+    - module_mark_2
+    - pytest_doc  (name=Test Docs)
+    ## Test Class
+    This is the class doc
+
+    **Markers:**
+    - pytest_doc  (name=Test Class)
+    - class_marker
+    ### test_func_a
+    This is the doc for test_func_a
+
+    **Markers:**
+    - func_mark_a (foo)
+    ### test_func_b
+    This is the doc for test_func_b
+
+    **Markers:**
+    - kwarg_mark  (goo=bla)
+
+Current supported formats:
 
 - Markdown
 - reStrcutured text
@@ -58,6 +115,8 @@ Usage
 Use ``--docs [PATH]`` to create the documentation.
 
 Use ``--doc-type`` to select the type (currently supports ``md`` and ``rst``)
+
+Use  ``@pytest.mark.pytest_doc(name="Test Class")`` to override name of element. It'll override name based on the place it is being used (module, class or function).
 
 **Note:** pytest-docs uses the pytest collection mechanism, so your documentation will be generated according the the usual collection commands used to run the tests.
 
