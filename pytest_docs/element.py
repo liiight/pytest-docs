@@ -20,7 +20,7 @@ class Element:
     def __init__(self, element: "Element" = None):
         self.raw_element = element
         self.raw_markers = self.element_markers(element)
-        self.type_ = self._element_type(element) if element else ElementType.NONE
+        self.type_ = self.element_type(element) if element else ElementType.NONE
         self.unique_id = self.unique_identifier(element)
         self.raw_name = self.element_name(element)
         self.desc = self.element_desc(element)
@@ -40,14 +40,14 @@ class Element:
         return (elem for elem in self.parent if elem is not self) if self.parent else ()
 
     @methdispatch
-    def _element_type(self, element):
+    def element_type(self, element):
         return (
             ElementType.CLASS
             if hasattr(element, "__qualname__")
             else ElementType.MODULE
         )
 
-    @_element_type.register(Function)
+    @element_type.register(Function)
     def _(self, element):
         return ElementType.FUNCTION
 
