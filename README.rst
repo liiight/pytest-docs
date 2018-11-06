@@ -63,6 +63,7 @@ What's planned ahead
 1. See if anyone is even interested in this
 2. Document fixtures
 3. Document tests and fixtures parametrization
+4. Custom formatters via hooks
 
 Contributing
 ------------
