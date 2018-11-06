@@ -20,9 +20,6 @@ A `pytest`_ plugin that generates documentation of the testing application itsel
     :target: https://github.com/ambv/black
     :alt: Black
 
-This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `cookiecutter-pytest-plugin`_ template.
-
-
 Features
 --------
 
@@ -138,7 +135,6 @@ License
 
 Distributed under the terms of the `MIT`_ license, "pytest-docs" is free and open source software
 
-
 Issues
 ------
 
@@ -156,3 +152,5 @@ If you encounter any problems, please `file an issue`_ along with a detailed des
 .. _`tox`: https://tox.readthedocs.io/en/latest/
 .. _`pip`: https://pypi.org/project/pip/
 .. _`PyPI`: https://pypi.org/project
+
+This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `cookiecutter-pytest-plugin`_ template.
