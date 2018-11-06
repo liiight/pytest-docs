@@ -2,7 +2,7 @@
 pytest-docs
 ===========
 
-Documentation tool for pytest
+A `pytest`_ plugin that generates documentation of the testing application itself.
 
 .. image:: https://img.shields.io/pypi/v/pytest-docs.svg
     :target: https://pypi.org/project/pytest-docs
@@ -15,8 +15,6 @@ Documentation tool for pytest
 .. image:: https://travis-ci.org/liiight/pytest_docs.svg?branch=master
     :target: https://travis-ci.org/liiight/pytest-docs
     :alt: See Build Status on Travis CI
-
-----
 
 This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `cookiecutter-pytest-plugin`_ template.
 
@@ -58,6 +56,13 @@ Use ``--docs [PATH]`` to create the documentation.
 Use ``--doc-type`` to select the type (currently supports ``md`` and ``rst``)
 
 **Note:** pytest-docs uses the pytest collection mechanism, so your documentation will be generated according the the usual collection commands used to run the tests.
+
+What's planned ahead
+--------------------
+
+1. See if anyone is even interested in this
+2. Document fixtures
+3. Document tests and fixtures parametrization
 
 Contributing
 ------------

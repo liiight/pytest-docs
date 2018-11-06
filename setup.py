@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name="pytest-docs",
-    version="0.0.5",
+    version="0.0.5.post1",
     author="Or Carmi",
     author_email="or.carmi82@gmail.com",
     maintainer="Or Carmi",
@@ -23,7 +23,6 @@ setup(
     url="https://github.com/liiight/pytest-docs",
     description="Documentation tool for pytest",
     long_description=read("README.rst"),
-    py_modules=["pytest_docs"],
     python_requires=">=3.4",
     install_requires=["pytest>=3.5.0"],
     packages=find_packages(exclude=["pytest_docs.tests"]),
