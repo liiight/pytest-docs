@@ -14,7 +14,11 @@ A `pytest`_ plugin that generates documentation of the testing application itsel
 
 .. image:: https://travis-ci.org/liiight/pytest_docs.svg?branch=master
     :target: https://travis-ci.org/liiight/pytest-docs
-    :alt: See Build Status on Travis CI
+    :alt: Travis CI
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/ambv/black
+    :alt: Black
 
 This `pytest`_ plugin was generated with `Cookiecutter`_ along with `@hackebrot`_'s `cookiecutter-pytest-plugin`_ template.
 
