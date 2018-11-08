@@ -17,6 +17,10 @@ class ElementType(Enum):
 
 
 class Element:
+    """Represent the document consistent of the separate elements.
+     A recursive tree structure where each element can have a parent, siblings or children.
+      A module is a parent of a class, class of a function."""
+
     def __init__(self, element: "Element" = None):
         self.raw_element = element
         self.raw_markers = self.element_markers(element)
@@ -37,10 +41,11 @@ class Element:
 
     @property
     def siblings(self):
+        """Return a generator of :class:`Element` that share the same parent as current element"""
         return (elem for elem in self.parent if elem is not self) if self.parent else ()
 
     @methdispatch
-    def element_type(self, element):
+    def element_type(self, element) -> ElementType:
         return (
             ElementType.CLASS
             if hasattr(element, "__qualname__")
@@ -48,7 +53,7 @@ class Element:
         )
 
     @element_type.register(Function)
-    def _(self, element):
+    def _(self, element) -> ElementType:
         return ElementType.FUNCTION
 
     @classmethod
@@ -59,19 +64,19 @@ class Element:
         return tree
 
     @methdispatch
-    def element_name(self, element):
+    def element_name(self, element) -> str:
         return element.__name__ if element else ""
 
     @element_name.register(Function)
-    def _(self, element):
+    def _(self, element) -> str:
         return element.originalname or element.name
 
     @methdispatch
-    def element_desc(self, element):
+    def element_desc(self, element) -> str:
         return element.__doc__ if element else ""
 
     @element_desc.register(Function)
-    def _(self, element):
+    def _(self, element) -> str:
         return element.function.__doc__
 
     @methdispatch

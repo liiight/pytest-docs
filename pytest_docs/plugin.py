@@ -11,15 +11,11 @@ FORMATTERS = {
 
 
 class DocPlugin:
-    def __init__(self, config):
-        self.config = config
-        self.path = config.getvalue("docs_path")
-        self.format_type = config.getvalue("docs_type")
+    def __init__(self, path, format_type):
+        self.path = path
+        self.format_type = format_type
 
     def pytest_runtestloop(self, session):
-        if not self.path:
-            return
-
         doc_tree = Element.create_doc_tree(session.items)
 
         fmt = FORMATTERS[self.format_type]
@@ -29,8 +25,7 @@ class DocPlugin:
             file.write(out)
 
     def pytest_terminal_summary(self, terminalreporter, exitstatus):
-        if self.path:
-            terminalreporter.write_sep("-", "generated doc file: {}".format(self.path))
+        terminalreporter.write_sep("-", "generated doc file: {}".format(self.path))
 
 
 def pytest_addoption(parser):
@@ -46,5 +41,7 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config):
-    docs = DocPlugin(config)
-    config.pluginmanager.register(docs, "pytest-docs")
+    path = config.getoption("docs_path")
+    if path:
+        format_type = config.getoption("docs_type")
+        config.pluginmanager.register(DocPlugin(path, format_type), "pytest-docs")

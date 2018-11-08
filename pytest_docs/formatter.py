@@ -4,6 +4,8 @@ from .element import Element
 
 
 class Formatter:
+    """Build the output document from an :class:`Element`"""
+
     name = None
 
     @staticmethod
@@ -20,6 +22,7 @@ class Formatter:
     marker_prefix = "Markers"
 
     def create_document(self, doc_tree: Element) -> str:
+        """Iterates over the elements and generates an hierarchical document structure"""
         out = []
         for module in doc_tree:
             out += self._doc_element(
@@ -53,4 +56,5 @@ class Formatter:
 
     @staticmethod
     def _add_new_lines(element_doc: list) -> list:
+        """Adds a new line between each element"""
         return list(chain.from_iterable(zip(element_doc, ["\n" for _ in element_doc])))
