@@ -12,7 +12,7 @@ A `pytest`_ plugin that generates documentation of the testing application itsel
     :target: https://pypi.org/project/pytest-docs
     :alt: Python versions
 
-.. image:: https://travis-ci.org/liiight/pytest_docs.svg?branch=master
+.. image:: https://travis-ci.org/liiight/pytest-docs.svg?branch=master
     :target: https://travis-ci.org/liiight/pytest-docs
     :alt: Travis CI
 
