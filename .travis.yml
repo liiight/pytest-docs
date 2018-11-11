@@ -4,25 +4,23 @@ sudo: false
 language: python
 
 matrix:
-    include:
-      - python: 3.4
-      - python: 3.5
-      - python: 3.6
-      - python: 3.7
-        sudo: required
-        dist: xenial
-        env: TOX_ENV=py37
-
+  include:
+  - python: 3.4
+  - python: 3.5
+  - python: 3.6
+  - python: 3.7
+    sudo: required
+    dist: xenial
 
 install:
-  - pip install --upgrade pip setuptools tox tox-travis codecov
+- pip install --upgrade pip setuptools tox tox-travis codecov
 
 script:
-  - tox
+- tox
 
 before_cache:
-  - rm -rf $HOME/.cache/pip/log
+- rm -rf $HOME/.cache/pip/log
 
 cache:
   directories:
-    - $HOME/.cache/pip
+  - $HOME/.cache/pip
