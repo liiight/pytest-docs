@@ -18,6 +18,9 @@ install:
 script:
 - tox
 
+after_success:
+- codecov
+
 before_cache:
 - rm -rf $HOME/.cache/pip/log
 
