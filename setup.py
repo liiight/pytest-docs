@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name="pytest-docs",
-    version="0.0.6",
+    version="0.1.0",
     author="Or Carmi",
     author_email="or.carmi82@gmail.com",
     maintainer="Or Carmi",
