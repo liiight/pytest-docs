@@ -20,7 +20,7 @@ A `pytest`_ plugin that generates documentation of the testing application itsel
     :target: https://github.com/ambv/black
     :alt: Black
 
-.. image:: https://pepy.tech/project/pytest-docs
+.. image:: https://pepy.tech/badge/pytest-docs
     :target: https://pepy.tech/project/pytest-docs
     :alt: Pepy.tech
 
