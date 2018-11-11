@@ -13,7 +13,7 @@ matrix:
     dist: xenial
 
 install:
-- pip install --upgrade pip setuptools tox tox-travis codecov
+- pip install --upgrade pip setuptools tox tox-travis codecov coverage
 
 script:
 - tox
