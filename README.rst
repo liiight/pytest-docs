@@ -24,6 +24,9 @@ A `pytest`_ plugin that generates documentation of the testing application itsel
     :target: https://pepy.tech/project/pytest-docs
     :alt: Pepy.tech
 
+.. image:: https://codecov.io/gh/liiight/pytest_docs/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/liiight/pytest_docs
+
 
 Features
 --------
