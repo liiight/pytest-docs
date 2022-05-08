@@ -169,5 +169,5 @@ class Element:
 
     def __eq__(self, other):
         if not isinstance(other, Element):
-            raise TypeError
+            raise TypeError("Comparison must be of type 'Element'")
         return self.unique_id == other.unique_id
