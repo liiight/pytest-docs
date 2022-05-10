@@ -119,7 +119,9 @@ Usage
 
 Use ``--docs [PATH]`` to create the documentation.
 
-Use ``--doc-type`` to select the type (currently supports ``md`` and ``rst``)
+Use ``--doc-type`` to select the type (currently supports ``md``, ``rst`` and ``custom``)
+
+Use ``--custom-formatter-path`` when using ``custom`` type, and specify the module path to a python file with a formatter called ``CustomFormatter``. To create a custom formatter, take inspiration from the formatters in the pytest_docs/formatters folder.
 
 Use  ``@pytest.mark.pytest_doc(name="Test Class")`` to override name of element. It'll override name based on the place it is being used (module, class or function).
 

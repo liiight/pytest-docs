@@ -37,3 +37,14 @@ def test_formatter_sanity(testdir, tmpdir, file_type, expected_file, expected_ou
     testdir.makepyfile(TEST_SUITE)
     testdir.runpytest("--docs", str(path), "--doc-type", file_type)
     assert path.read() == expected_output(expected_file)
+
+def test_custom_formatter(testdir, tmpdir,):
+    file_type = "custom"
+    path = tmpdir.join("doc.{}".format(file_type))
+    testdir.makepyfile(TEST_SUITE)
+    testdir.runpytest(
+        "--docs", str(path),
+        "--doc-type", file_type,
+        "--custom-formatter-path", "tests.formatters_for_test.empty_formatter"
+    )
+    assert "#" not in path.read()
